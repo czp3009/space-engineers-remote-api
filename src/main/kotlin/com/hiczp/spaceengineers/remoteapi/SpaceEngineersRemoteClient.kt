@@ -6,10 +6,12 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.features.logging.LogLevel
 import io.ktor.client.features.logging.Logging
+import io.ktor.util.KtorExperimentalAPI
 import kotlinx.io.core.Closeable
 import org.slf4j.LoggerFactory
 
-class SpaceEngineersRemoteClient : Closeable {
+class SpaceEngineersRemoteClient(private val url: String) : Closeable {
+    @UseExperimental(KtorExperimentalAPI::class)
     private val httpClient by lazy {
         HttpClient(CIO) {
             install(Logging) {
@@ -22,7 +24,7 @@ class SpaceEngineersRemoteClient : Closeable {
         }
     }
 
-    val admin = httpClient.create<AdminService>()
+    val admin = httpClient.create<AdminService>(url)
 
     override fun close() {
         httpClient.close()
