@@ -3,3 +3,4 @@
 /.gradlew.bat
 /build
 /out
+/src/test/resources/config.json

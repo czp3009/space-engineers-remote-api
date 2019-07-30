@@ -1,5 +1,7 @@
 package com.hiczp.spaceengineers.remoteapi
 
+import com.github.salomonbrys.kotson.fromJson
+import com.google.gson.Gson
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -12,13 +14,51 @@ class SpaceEngineersRemoteClientTest {
 
     @BeforeAll
     fun init() {
-        spaceEngineersRemoteClient = SpaceEngineersRemoteClient("http://localhost:8080")
+        this.javaClass.getResourceAsStream("/config.json").reader().let {
+            Gson().fromJson<Config>(it)
+        }.run {
+            spaceEngineersRemoteClient = SpaceEngineersRemoteClient(url, key)
+        }
     }
 
     @Test
-    fun getAdmin() {
+    fun ping() {
         runBlocking {
-            spaceEngineersRemoteClient.admin.getBannedPlayers()
+            spaceEngineersRemoteClient.server.ping()
+        }
+    }
+
+    @Test
+    fun session() {
+        runBlocking {
+            with(spaceEngineersRemoteClient.session) {
+                save()
+                players()
+                asteroids()
+                floatingObjects()
+                grids()
+                planets()
+                messages()
+            }
+        }
+    }
+
+    @Test
+    fun server() {
+        runBlocking {
+            with(spaceEngineersRemoteClient.server) {
+                serverStatus()
+            }
+        }
+    }
+
+    @Test
+    fun admin() {
+        runBlocking {
+            with(spaceEngineersRemoteClient.admin) {
+                bannedPlayers()
+                kickedPlayers()
+            }
         }
     }
 
