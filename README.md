@@ -1,7 +1,7 @@
-#SpaceEngineers Remote API written in Kotlin
+# SpaceEngineers Remote API written in Kotlin
 developing
 
-#Usage
+# Usage
 ```kotlin
 val spaceEngineersRemoteClient = SpaceEngineersRemoteClient(
     "http://localhost:8080",
