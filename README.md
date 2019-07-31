@@ -8,7 +8,8 @@ val spaceEngineersRemoteClient = SpaceEngineersRemoteClient(
     "0123456789"
 )
 runBlocking {
-    spaceEngineersRemoteClient.server.ping().data.result.run(::println)
+    spaceEngineersRemoteClient.server.ping().data.run(::println)
+    spaceEngineersRemoteClient.session.sendMessage("Testing 123")
 }
 spaceEngineersRemoteClient.close()
 ```

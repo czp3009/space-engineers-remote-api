@@ -1,7 +1,11 @@
 package com.hiczp.spaceengineers.remoteapi
 
+import com.github.salomonbrys.kotson.get
+import com.github.salomonbrys.kotson.obj
+import com.github.salomonbrys.kotson.registerTypeAdapter
 import com.google.gson.FieldNamingPolicy
 import com.hiczp.caeruleum.create
+import com.hiczp.spaceengineers.remoteapi.service.Response
 import com.hiczp.spaceengineers.remoteapi.service.admin.AdminService
 import com.hiczp.spaceengineers.remoteapi.service.server.ServerService
 import com.hiczp.spaceengineers.remoteapi.service.session.SessionService
@@ -16,9 +20,11 @@ import io.ktor.client.request.header
 import io.ktor.http.Url
 import io.ktor.http.fullPath
 import io.ktor.http.toHttpDateString
+import io.ktor.http.userAgent
 import io.ktor.util.KtorExperimentalAPI
 import kotlinx.io.core.Closeable
 import org.slf4j.LoggerFactory
+import java.lang.reflect.ParameterizedType
 import java.time.Instant
 import java.util.*
 import javax.crypto.Mac
@@ -54,10 +60,22 @@ class SpaceEngineersRemoteClient(url: String, key: String) : Closeable {
             }
             header("Date", date)
             header("Authorization", "$nonce:$hash")
+            userAgent("RestSharp/106.6.9.0")
         }
         install(JsonFeature) {
             serializer = GsonSerializer {
                 setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                registerTypeAdapter<Response<*>> {
+                    deserialize { (json, type, context) ->
+                        Response<Any>(
+                            data = context.deserialize(
+                                json["data"].obj.entrySet().first().value,
+                                (type as ParameterizedType).actualTypeArguments[0]
+                            ),
+                            meta = context.deserialize(json["meta"])
+                        )
+                    }
+                }
             }
         }
     }

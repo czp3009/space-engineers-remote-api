@@ -9,7 +9,18 @@ data class Meta(
     val queryTime: Float
 )
 
-open class CommonResponse(
+open class NoDataResponse(
     @SerializedName("meta")
-    val meta: Meta = Meta("1.0", 0f)
+    val meta: Meta
 )
+
+open class Response<T>(
+    @SerializedName("data")
+    val data: T,
+    meta: Meta
+) : NoDataResponse(meta)
+
+open class NoInnerResponse<T>(
+    data: T,
+    meta: Meta
+) : Response<T>(data, meta)

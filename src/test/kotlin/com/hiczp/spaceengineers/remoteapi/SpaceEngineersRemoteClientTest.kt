@@ -39,6 +39,7 @@ class SpaceEngineersRemoteClientTest {
                 grids()
                 planets()
                 messages()
+                sendMessage("Testing 123")
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.hiczp.spaceengineers.remoteapi.service.session.model
+package com.hiczp.spaceengineers.remoteapi.service.session
 
 abstract class Entity {
     abstract val displayName: String?
