@@ -60,4 +60,10 @@ interface SessionService {
     suspend fun sendMessage0(@Body message: String): NoDataResponse
 
     suspend fun sendMessage(message: String) = sendMessage0(""""$message"""")
+
+    @Get("session/characters")
+    suspend fun characters(): Response<List<Character>>
+
+    @Patch("session/characters/{entityId}")
+    suspend fun stopCharacter(@Path entityId: String): NoDataResponse
 }

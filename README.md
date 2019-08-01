@@ -5,7 +5,7 @@ developing
 ```kotlin
 val spaceEngineersRemoteClient = SpaceEngineersRemoteClient(
     "http://localhost:8080",
-    "0123456789"
+    "BbDYO1rQObKCkCyh50Z2UQ=="
 )
 runBlocking {
     spaceEngineersRemoteClient.server.ping().data.run(::println)
@@ -13,3 +13,6 @@ runBlocking {
 }
 spaceEngineersRemoteClient.close()
 ```
+
+# License
+Apache 2.0
