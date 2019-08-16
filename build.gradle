@@ -24,11 +24,11 @@ dependencies {
     // https://mvnrepository.com/artifact/com.hiczp/caeruleum
     api group: 'com.hiczp', name: 'caeruleum', version: '1.2.3'
     // https://mvnrepository.com/artifact/io.ktor/ktor-client-cio
-    api group: 'io.ktor', name: 'ktor-client-cio', version: '1.2.2'
+    api group: 'io.ktor', name: 'ktor-client-cio', version: '1.2.3'
     // https://mvnrepository.com/artifact/io.ktor/ktor-client-logging-jvm
-    api group: 'io.ktor', name: 'ktor-client-logging-jvm', version: '1.2.2'
+    api group: 'io.ktor', name: 'ktor-client-logging-jvm', version: '1.2.3'
     // https://mvnrepository.com/artifact/io.ktor/ktor-client-gson
-    api group: 'io.ktor', name: 'ktor-client-gson', version: '1.2.2'
+    api group: 'io.ktor', name: 'ktor-client-gson', version: '1.2.3'
 }
 
 //json
@@ -43,6 +43,8 @@ dependencies {
 dependencies {
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
     testApi group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.5.1'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    testApi group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.28'
 }
 
 compileKotlin {

@@ -32,7 +32,7 @@ class SpaceEngineersRemoteClientTest {
     fun session() {
         runBlocking {
             with(spaceEngineersRemoteClient.session) {
-                save()
+                //save()
                 players()
                 asteroids()
                 floatingObjects()
