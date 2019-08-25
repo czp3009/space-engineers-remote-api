@@ -1,6 +1,6 @@
 # SpaceEngineers Remote API written in Kotlin
 ```gradle
-api group: 'com.hiczp', name: 'space-engineers-remote-api', version: '0.1'
+api group: 'com.hiczp', name: 'space-engineers-remote-api', version: '0.1.1'
 ```
 
 # Usage

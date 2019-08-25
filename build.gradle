@@ -6,7 +6,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 group 'com.hiczp'
-version '0.1'
+version '0.1.1'
 description 'Call SpaceEngineers remote API in Kotlin'
 
 repositories {
@@ -22,7 +22,7 @@ dependencies {
 //http
 dependencies {
     // https://mvnrepository.com/artifact/com.hiczp/caeruleum
-    api group: 'com.hiczp', name: 'caeruleum', version: '1.2.3'
+    api group: 'com.hiczp', name: 'caeruleum', version: '1.2.4'
     // https://mvnrepository.com/artifact/io.ktor/ktor-client-cio
     api group: 'io.ktor', name: 'ktor-client-cio', version: '1.2.3'
     // https://mvnrepository.com/artifact/io.ktor/ktor-client-logging-jvm
