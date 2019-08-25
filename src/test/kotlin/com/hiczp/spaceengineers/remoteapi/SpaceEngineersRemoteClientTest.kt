@@ -38,7 +38,7 @@ class SpaceEngineersRemoteClientTest {
                 floatingObjects()
                 grids()
                 planets()
-                sendMessage("Testing 123")
+                //sendMessage("Testing 123")
                 messages()
                 characters()
             }
