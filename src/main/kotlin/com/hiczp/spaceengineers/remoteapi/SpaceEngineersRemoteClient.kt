@@ -10,7 +10,8 @@ import com.hiczp.spaceengineers.remoteapi.service.admin.AdminService
 import com.hiczp.spaceengineers.remoteapi.service.server.ServerService
 import com.hiczp.spaceengineers.remoteapi.service.session.SessionService
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
+import io.ktor.client.engine.HttpClientEngineConfig
+import io.ktor.client.engine.HttpClientEngineFactory
 import io.ktor.client.features.defaultRequest
 import io.ktor.client.features.json.GsonSerializer
 import io.ktor.client.features.json.JsonFeature
@@ -21,7 +22,6 @@ import io.ktor.http.Url
 import io.ktor.http.fullPath
 import io.ktor.http.toHttpDateString
 import io.ktor.http.userAgent
-import io.ktor.util.KtorExperimentalAPI
 import kotlinx.io.core.Closeable
 import org.slf4j.LoggerFactory
 import java.lang.reflect.ParameterizedType
@@ -36,12 +36,15 @@ import kotlin.random.nextInt
  * @param url http address. For example "http://localhost:8080"
  * @param key base64 encoded secret key
  */
-class SpaceEngineersRemoteClient(url: String, key: String) : Closeable {
+class SpaceEngineersRemoteClient(
+    url: String,
+    key: String,
+    engine: HttpClientEngineFactory<HttpClientEngineConfig>
+) : Closeable {
     private val baseUrl = "$url/vrageremote/v1/"
     private val secretKey = SecretKeySpec(Base64.getDecoder().decode(key), "HmacSHA1")
 
-    @UseExperimental(KtorExperimentalAPI::class)
-    private val httpClient = HttpClient(CIO) {
+    private val httpClient = HttpClient(engine) {
         install(Logging) {
             level = if (LoggerFactory.getLogger(SpaceEngineersRemoteClient::class.java).isDebugEnabled) {
                 LogLevel.ALL

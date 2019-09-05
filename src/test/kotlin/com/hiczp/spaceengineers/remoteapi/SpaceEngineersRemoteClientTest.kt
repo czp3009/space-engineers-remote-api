@@ -2,6 +2,8 @@ package com.hiczp.spaceengineers.remoteapi
 
 import com.github.salomonbrys.kotson.fromJson
 import com.google.gson.Gson
+import io.ktor.client.engine.cio.CIO
+import io.ktor.util.KtorExperimentalAPI
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -12,12 +14,13 @@ import org.junit.jupiter.api.TestInstance
 class SpaceEngineersRemoteClientTest {
     private lateinit var spaceEngineersRemoteClient: SpaceEngineersRemoteClient
 
+    @UseExperimental(KtorExperimentalAPI::class)
     @BeforeAll
     fun init() {
         this.javaClass.getResourceAsStream("/config.json").reader().let {
             Gson().fromJson<Config>(it)
         }.run {
-            spaceEngineersRemoteClient = SpaceEngineersRemoteClient(url, key)
+            spaceEngineersRemoteClient = SpaceEngineersRemoteClient(url, key, CIO)
         }
     }
 
