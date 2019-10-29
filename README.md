@@ -25,5 +25,10 @@ runBlocking {
 spaceEngineersRemoteClient.close()
 ```
 
+# What is SpaceEngineers Remote API
+FYI https://www.spaceengineersgame.com/dedicated-servers.html
+
+![API](http://mirror.keenswh.com/images/remoteApi.png)
+
 # License
 Apache 2.0
