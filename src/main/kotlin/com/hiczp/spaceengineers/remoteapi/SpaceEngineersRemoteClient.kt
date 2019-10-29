@@ -10,6 +10,7 @@ import com.hiczp.spaceengineers.remoteapi.service.admin.AdminService
 import com.hiczp.spaceengineers.remoteapi.service.server.ServerService
 import com.hiczp.spaceengineers.remoteapi.service.session.SessionService
 import io.ktor.client.HttpClient
+import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.HttpClientEngineConfig
 import io.ktor.client.engine.HttpClientEngineFactory
 import io.ktor.client.features.defaultRequest
@@ -36,10 +37,11 @@ import kotlin.random.nextInt
  * @param url http address. For example "http://localhost:8080"
  * @param key base64 encoded secret key
  */
-class SpaceEngineersRemoteClient(
+class SpaceEngineersRemoteClient<out T : HttpClientEngineConfig>(
     url: String,
     key: String,
-    engine: HttpClientEngineFactory<HttpClientEngineConfig>
+    engine: HttpClientEngineFactory<T>,
+    config: HttpClientConfig<T>.() -> Unit = {}
 ) : Closeable {
     private val baseUrl = "$url/vrageremote/v1/"
     private val secretKey = SecretKeySpec(Base64.getDecoder().decode(key), "HmacSHA1")
@@ -63,7 +65,7 @@ class SpaceEngineersRemoteClient(
             }
             header("Date", date)
             header("Authorization", "$nonce:$hash")
-            userAgent("RestSharp/106.6.9.0")
+            userAgent("RestSharp/106.6.10")
         }
         install(JsonFeature) {
             serializer = GsonSerializer {
@@ -81,6 +83,7 @@ class SpaceEngineersRemoteClient(
                 }
             }
         }
+        config()
     }
 
     val session by lazy { httpClient.create<SessionService>(baseUrl) }

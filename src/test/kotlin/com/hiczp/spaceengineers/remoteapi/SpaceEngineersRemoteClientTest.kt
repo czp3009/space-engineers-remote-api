@@ -12,7 +12,7 @@ import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class SpaceEngineersRemoteClientTest {
-    private lateinit var spaceEngineersRemoteClient: SpaceEngineersRemoteClient
+    private lateinit var spaceEngineersRemoteClient: SpaceEngineersRemoteClient<*>
 
     @UseExperimental(KtorExperimentalAPI::class)
     @BeforeAll
